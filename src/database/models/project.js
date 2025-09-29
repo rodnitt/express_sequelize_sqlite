@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Project.hasMany(models.Task, { foreignKey: 'projectId' });
+      Project.hasMany(models.Task, { foreignKey: 'projectId', as: 'tasks' });
       Project.belongsToMany(models.User, {
         through: 'ProjectUsers',
         foreignKey: 'projectId'
@@ -39,6 +39,18 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Project',
+    scopes: {
+      taskList: (limit = 0) => ({
+        attributes: ['id', 'name', 'summary', 'startDate', 'dueDate'],
+        include: {
+          model: sequelize.models.Task,
+          as: 'tasks',
+          attributes: ['id', 'title', 'status', 'priority', 'dueDate'],
+          order: [['dueDate', 'ASC'], ['priority', 'DESC']],
+          limit
+        }
+      })
+    }
   });
   return Project;
 };

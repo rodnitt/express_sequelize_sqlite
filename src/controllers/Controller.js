@@ -5,21 +5,21 @@ class Controller {
     this.service = service;
   }
 
-  async getAll(req, res) {
-    try {
-      const entries = await this.service.getAll();
-      return res.status(200).json(entries);
-    }
-    catch (err) {
-      return res.status(500).json({ error: err.message });
-    }
-  }
+  // async getAll(req, res) {
+  //   try {
+  //     const entries = await this.service.getAll();
+  //     return res.status(200).json(entries);
+  //   }
+  //   catch (err) {
+  //     return res.status(500).json({ error: err.message });
+  //   }
+  // }
 
   async getAll(req, res) {
     const { ...params } = req.params;
-    const conditions = conversor(params);
+    const where = conversor(params);
     try {
-      const entries = await this.service.getAllWhere(conditions);
+      const entries = await this.service.getAll({ where });
       return res.status(200).json(entries);
     }
     catch (err) {

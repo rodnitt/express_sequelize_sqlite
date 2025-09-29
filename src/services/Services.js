@@ -5,6 +5,10 @@ class Services {
     this.model = modelName;
   }
 
+  async count(options = {}) {
+    return dataSource[this.model].count(options);
+  }
+
   async getAll(options = {}) {
     return dataSource[this.model].findAll(options);
   }

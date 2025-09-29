@@ -9,6 +9,7 @@ const taskController = new TaskController();
 router.get('/project/list', (req, res) => projectController.getAll(req, res));
 router.get('/project/:projectId/users', (req, res) => projectController.getUsers(req, res));
 router.get('/project/:projectId/tasks', (req, res) => taskController.getAll(req, res));
+router.get('/project/:projectId/progress', (req, res) => taskController.getProgressInProject(req, res));
 router.get('/project/:id', (req, res) => projectController.getById(req, res));
 router.post('/project', (req, res) => projectController.create(req, res));
 router.put('/project/:projectId/assign', (req, res) => projectController.assignUser(req, res));

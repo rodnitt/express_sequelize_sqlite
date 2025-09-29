@@ -43,6 +43,26 @@ class TaskController extends Controller {
     }
   }
 
+  async getProgressInProject(req, res) {
+    try {
+      const { projectId } = req.params;
+      const result = [];
+      const statuses = ['backlog', 'in progress', 'completed'];
+      for (let i of [0, 1, 2]) {
+        result[i] = await taskServices.count({
+          where: {
+            projectId,
+            status: statuses[i]
+          }
+        });
+      }
+      return res.status(200).json(result);
+    }
+    catch (err) {
+      return res.status(500).json({ error: err.message });
+    }
+  }
+
   async restore(req, res) {
     try {
       const { id } = req.params;
