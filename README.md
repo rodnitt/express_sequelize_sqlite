@@ -37,6 +37,7 @@ Now you can send http requests to the server.
     ```
     GET <url>/project/list
     ```
+
 1. **Create** a new project in database.
     ```
     POST <url>/project
@@ -48,8 +49,15 @@ Now you can send http requests to the server.
         dueDate: DATE
     }
     ```
+
 1. Get the **quantities of tasks** in project grouped by status.
     ```
     GET <url>/project/<project-id>/progress
     ```
     Return an array with three integers: the quantities of task in each status, e.g. [1, 2, 3] means that 1 task is in *Backlog*, 2 tasks are *In Progress* and 3 tasks are *Completed*. The order of status counters is always the same: Backlog, In Progress and Completed.
+
+1. Obtain a list with **all tasks** of a project.
+    ```
+    GET <url>/project/<project-id>/tasks
+    ```
+    *Note: by default, tasks will be in order of due date and priority*

@@ -48,7 +48,11 @@ module.exports = (sequelize, DataTypes) => {
     modelName: 'Task',
     paranoid: true,
     defaultScope: {
-      order: [['dueDate', 'ASC'], ['priority', 'DESC']]
+      order: [['dueDate', 'ASC'], ['priority', 'DESC']],
+      include: {
+        association: 'responsible',
+        attributes: ['id', 'name']
+      }
     },
     scopes: {
       prioritized: {
